@@ -29,18 +29,20 @@ class Response {
             'excerpt' => get_the_excerpt($post_id),
             'content' => apply_filters('the_content', $post->post_content),
             'status' => $post->post_status,
-    
-            'author' => $this->format->get_author_data($post->post_author),
+            'featured_media' => $this->format->get_featured_media($post_id),    
+            'seo' => $this->format->get_seo_data($post_id),
+
+            'author' => get_the_author_meta('display_name', $post->post_author),
+            'author_detail' => $this->format->get_author_detail($post->post_author),
+
             'categories' => $this->format->get_taxonomy_terms('category', $post_id),
             'categories_detail' => $this->format->get_taxonomy_details('category', $post_id),
+
             'tags' => $this->format->get_taxonomy_terms('post_tag', $post_id),
             'tags_detail' => $this->format->get_taxonomy_details('post_tag', $post_id),
-            'featured_media' => $this->format->get_featured_media($post_id),
-    
-            'seo' => $this->format->get_seo_data($post_id),
-    
-            'created_at' => get_the_date(DATE_ATOM, $post_id),
-            'updated_at' => get_the_modified_date(DATE_ATOM, $post_id)
+
+            'published_at' => get_the_date(DATE_ATOM, $post_id),
+            'modified_at' => get_the_modified_date(DATE_ATOM, $post_id),
         ];
     }
 }

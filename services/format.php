@@ -10,11 +10,13 @@ class Format {
      * @param int $author_id Author ID
      * @return array Author data
      */
-    public function get_author_data(int $author_id): array {
+    public function get_author_detail(int $author_id): array {
         return [
             'id' => $author_id,
             'name' => get_the_author_meta('display_name', $author_id),
-            'avatar' => get_avatar_url($author_id)
+            'avatar' => get_avatar_url($author_id),
+            'description' => get_the_author_meta('description', $author_id),
+            'slug' => get_the_author_meta('user_nicename', $author_id),
         ];
     }
     
