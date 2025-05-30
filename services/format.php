@@ -38,7 +38,9 @@ class Format {
                 $terms = [];
                 break;
         }
-            
+
+        if (empty($terms)) return [];
+
         return array_map(function($term) {
             return $term->name ?? '';
         }, $terms);
@@ -64,7 +66,9 @@ class Format {
                 $terms = [];
                 break;
         }
-            
+
+        if (empty($terms)) return [];
+
         return array_map(function($term) { 
             return [
                 'id' => $term->term_id,

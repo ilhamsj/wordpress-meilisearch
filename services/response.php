@@ -29,7 +29,6 @@ class Response {
             'excerpt' => get_the_excerpt($post_id),
             'content' => apply_filters('the_content', $post->post_content),
             'status' => $post->post_status,
-            'link' => get_permalink($post_id),
     
             'author' => $this->format->get_author_data($post->post_author),
             'categories' => $this->format->get_taxonomy_terms('category', $post_id),

@@ -56,14 +56,14 @@ class Post {
 
         $post_data = [];
         $post_data = $this->response->default($post_id);
+        $this->logger->info(__FUNCTION__, $post_data);
 
-        if($update && $post->post_status === 'publish') {
-            $this->logger->info(__FUNCTION__, $post_data);
-            $this->apiCall->send('post', [
-                'action' => 'update',
-                'post' => $post_data,
-            ]);
-        }
+        // if($update && $post->post_status === 'publish') {
+        //     $this->apiCall->send('post', [
+        //         'action' => 'update',
+        //         'post' => $post_data,
+        //     ]);
+        // }
     }
 
     public function handle_delete_post(int $post_id) {
