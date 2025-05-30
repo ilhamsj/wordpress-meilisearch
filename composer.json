@@ -3,7 +3,8 @@
     "psr-4": {
       "Hooks\\": "hooks/",
       "Utils\\": "utils/",
-      "Constants\\": "constants/"
+      "Constants\\": "constants/",
+      "Services\\": "services/"
     }
   },
   "require": {

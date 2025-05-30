@@ -2,6 +2,8 @@
 
 namespace Hooks;
 
+use Constants\Config;
+use Services\Response;
 use Utils\ApiCall;
 use Utils\Logger;
 use WP_Post;
@@ -10,10 +12,12 @@ class Post {
 
     private $logger;
     private $apiCall;
+    private $response;
     
     public function __construct() {
         $this->logger = new Logger(__CLASS__);
         $this->apiCall = new ApiCall();
+        $this->response = new Response();
 
         add_action('save_post', [$this, 'handle_save_post'], 10, 3);
         add_action('wp_trash_post', [$this, 'handle_delete_post'], 10, 3);
@@ -48,19 +52,17 @@ class Post {
     }
 
     public function handle_save_post(int $post_id, WP_Post $post, bool $update) {
-        if ($post->post_type !== 'post') return;
+        if (!in_array($post->post_type, Config::POST_TYPE)) return;
 
-        $post_data = [
-            'post_id' => $post_id,
-            'post_type' => $post->post_type,
-            'post_title' => $post->post_title,
-            'post_content' => $post->post_content,
-            'post_status' => $post->post_status,
-        ];
+        $post_data = [];
+        $post_data = $this->response->default($post_id);
 
         if($update && $post->post_status === 'publish') {
-            $post_data['action'] = 'update';
             $this->logger->info(__FUNCTION__, $post_data);
+            $this->apiCall->send('post', [
+                'action' => 'update',
+                'post' => $post_data,
+            ]);
         }
     }
 
