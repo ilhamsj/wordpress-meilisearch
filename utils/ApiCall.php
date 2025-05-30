@@ -1,8 +1,11 @@
 <?php
 
 namespace Utils;
+
+use Constants\Config;
+
 class ApiCall {
-    private $webhook_url = "http://host.docker.internal/n8n/webhook/wordpress";
+    private $webhook_url = Config::WEBHOOK_URL;
 
     /**
      * Send webhook to configured URL
