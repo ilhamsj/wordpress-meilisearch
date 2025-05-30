@@ -16,7 +16,7 @@ class Post {
     
     public function __construct() {
         $this->logger = new Logger(__CLASS__);
-        $this->apiCall = new ApiCall();
+        $this->apiCall = new ApiCall(Config::MEILISEARCH_INDEX_POST);
         $this->response = new Response();
 
         add_action('save_post', [$this, 'handle_save_post'], 10, 3);
@@ -56,14 +56,11 @@ class Post {
 
         $post_data = [];
         $post_data = $this->response->default($post_id);
-        $this->logger->info(__FUNCTION__, $post_data);
-
-        // if($update && $post->post_status === 'publish') {
-        //     $this->apiCall->send('post', [
-        //         'action' => 'update',
-        //         'post' => $post_data,
-        //     ]);
-        // }
+        
+        if($update && $post->post_status === 'publish') {
+            $this->logger->info(__FUNCTION__, $post_data);
+            $this->apiCall->send('post', $post_data);
+        }
     }
 
     public function handle_delete_post(int $post_id) {

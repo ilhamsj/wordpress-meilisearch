@@ -2,13 +2,14 @@
 
 namespace Hooks;
 
+use Constants\Config;
 use Utils\ApiCall;
 
 class Term {
     private $apiCall;
     
     public function __construct() {
-        $this->apiCall = new ApiCall();
+        $this->apiCall = new ApiCall(Config::MEILISEARCH_INDEX_TERM);
 
         add_action('created_term', [$this, 'handle_created_term'], 10, 3);
         add_action('edited_term', [$this, 'handle_created_term'], 10, 3);
@@ -42,7 +43,6 @@ class Term {
             'taxonomy' => $taxonomy,
             'name' => $term->name,
             'slug' => $term->slug,
-            'event_type' => 'delete'
         );
 
         $this->apiCall->send('term', $term_data);
