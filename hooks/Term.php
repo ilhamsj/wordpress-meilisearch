@@ -6,6 +6,7 @@ use Constants\Config;
 use Utils\ApiCall;
 
 class Term {
+
     private $apiCall;
     
     public function __construct() {
@@ -29,7 +30,9 @@ class Term {
             'taxonomy' => $taxonomy,
             'name' => $term->name,
             'slug' => $term->slug,
-            'event_type' => 'create'
+            'description' => $term->description,
+            'parent' => $term->parent,
+            'count' => $term->count,
         );
         
         $this->apiCall->send('term', $term_data);
