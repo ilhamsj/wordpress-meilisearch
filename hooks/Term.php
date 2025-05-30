@@ -39,8 +39,8 @@ class Term {
         $this->apiCall->send('term', $term_data);
     }
 
-    public function handle_deleted_term($term_id) {
-        $this->logger->info(__FUNCTION__, ['term_id' => $term_id]);
+    public function handle_deleted_term($term_id, $tt_id, $taxonomy) {
+        $this->logger->info(__FUNCTION__, ['term_id' => $term_id, 'tt_id' => $tt_id, 'taxonomy' => $taxonomy]);
         $this->apiCall->delete($term_id);
     }
 }
