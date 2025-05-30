@@ -3,6 +3,7 @@
 namespace Hooks;
 
 use Constants\Config;
+use Constants\MeilisearchConfig;
 use Utils\ApiCall;
 use Utils\Logger;
 
@@ -13,7 +14,7 @@ class Term {
     
     public function __construct() {
         $this->logger = new Logger(__CLASS__);
-        $this->apiCall = new ApiCall(Config::MEILISEARCH_INDEX_TERM);
+        $this->apiCall = new ApiCall(MeilisearchConfig::getIndexTerm());
 
         add_action('created_term', [$this, 'handle_created_term'], 10, 3);
         add_action('edited_term', [$this, 'handle_created_term'], 10, 3);

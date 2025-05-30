@@ -3,6 +3,7 @@
 namespace Hooks;
 
 use Constants\Config;
+use Constants\MeilisearchConfig;
 use Services\Response;
 use Utils\ApiCall;
 use Utils\Logger;
@@ -16,7 +17,7 @@ class Post {
     
     public function __construct() {
         $this->logger = new Logger(__CLASS__);
-        $this->apiCall = new ApiCall(Config::MEILISEARCH_INDEX_POST);
+        $this->apiCall = new ApiCall(MeilisearchConfig::getIndexPost());
         $this->response = new Response();
 
         add_action('save_post', [$this, 'handle_save_post'], 10, 3);

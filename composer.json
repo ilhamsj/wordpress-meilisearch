@@ -4,7 +4,8 @@
       "Hooks\\": "hooks/",
       "Utils\\": "utils/",
       "Constants\\": "constants/",
-      "Services\\": "services/"
+      "Services\\": "services/",
+      "Admin\\": "admin/"
     }
   },
   "require": {

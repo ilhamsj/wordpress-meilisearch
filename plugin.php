@@ -9,6 +9,7 @@
 
 use Hooks\Post;
 use Hooks\Term;
+use Admin\MeilisearchDashboard;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -17,5 +18,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Initialize hooks
 new Term();
 new Post();
+
+// Initialize admin dashboard (only in admin area)
+new MeilisearchDashboard();

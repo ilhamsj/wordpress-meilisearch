@@ -2,7 +2,7 @@
 
 namespace Utils;
 
-use Constants\Config;
+use Constants\MeilisearchConfig;
 
 class ApiCall {
     private $logger;
@@ -11,9 +11,9 @@ class ApiCall {
 
     public function __construct(string $index) { 
         $this->logger = new Logger(__CLASS__);
-        $this->url = sprintf('%s/indexes/%s/documents', Config::MEILISEARCH_URL, $index);
+        $this->url = sprintf('%s/indexes/%s/documents', MeilisearchConfig::getUrl(), $index);
         $this->headers = [
-            'Authorization' => sprintf('Bearer %s', Config::MEILISEARCH_API_KEY),
+            'Authorization' => sprintf('Bearer %s', MeilisearchConfig::getApiKey()),
             'Content-Type' => 'application/json',
         ];
     }
