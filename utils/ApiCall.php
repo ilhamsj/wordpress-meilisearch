@@ -1,5 +1,7 @@
 <?php
-class Api_Call {
+
+namespace Utils;
+class ApiCall {
     private $webhook_url = "http://host.docker.internal/n8n/webhook/wordpress";
 
     /**
