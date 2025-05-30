@@ -35,7 +35,7 @@ class Post {
 	 * @param null|WP_Post $post_before Null for new posts, the WP_Post object prior
 	 *                                  to the update for updated posts.
 	 */
-    public function handle_save_post(int $post_id, WP_Post $post, bool $update, WP_Post $post_before) {
+    public function handle_save_post(int $post_id, WP_Post $post, bool $update) {
         if (!in_array($post->post_type, Config::POST_TYPE)) return;
 
         $post_data = [];
