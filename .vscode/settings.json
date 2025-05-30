@@ -1,0 +1,7 @@
+{
+    "intelephense.environment.includePaths": [
+        "/Users/ilhamsj/github/universe/wordpress/public/wordpress/wp-includes",
+        "/Users/ilhamsj/github/universe/wordpress/public/wordpress/wp-admin",
+        "/Users/ilhamsj/github/universe/wordpress/public/wordpress"
+    ]
+}
