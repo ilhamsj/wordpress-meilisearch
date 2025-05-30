@@ -7,6 +7,7 @@
  * Text Domain: wordpress-custom-sync
  */
 
+use Hooks\Post;
 use Hooks\Term;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -17,3 +18,4 @@ if (!defined('ABSPATH')) {
 }
 
 new Term();
+new Post();

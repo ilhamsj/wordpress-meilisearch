@@ -13,8 +13,8 @@ class Term {
         add_action('created_term', [$this, 'handle_created_term'], 10, 3);
         add_action('edited_term', [$this, 'handle_created_term'], 10, 3);
         add_action('deleted_term', [$this, 'handle_deleted_term'], 10, 3);
-        add_action('trashed_post', [$this, 'handle_trashed_post'], 10, 3);
-        add_action('untrashed_post', [$this, 'handle_untrashed_post'], 10, 3);
+        add_action('trashed_term', [$this, 'handle_trashed_term'], 10, 3);
+        add_action('untrashed_term', [$this, 'handle_untrashed_term'], 10, 3);
     }
 
     /**
@@ -36,7 +36,7 @@ class Term {
 
     public function handle_deleted_term($term_id, $tt_id, $taxonomy) {
         $term = get_term($term_id, $taxonomy);
-        
+
         $term_data = array(
             'term_id' => $term_id,
             'taxonomy' => $taxonomy,
@@ -44,7 +44,7 @@ class Term {
             'slug' => $term->slug,
             'event_type' => 'delete'
         );
-        
+
         $this->apiCall->send('term', $term_data);
     }
 }

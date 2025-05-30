@@ -22,7 +22,7 @@ class Logger {
         $this->monolog->pushHandler($file);
     }
 
-    private function log($level, $message, $context = []) {
+    private function log(Level $level, string $message, array $context = []) {
         $this->monolog->log($level, $message, $context);
     }
 
