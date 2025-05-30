@@ -64,6 +64,7 @@ class Post {
     }
 
     public function handle_delete_post(int $post_id) {
-        $this->logger->info(__FUNCTION__, ['post_id' => $post_id, 'action' => 'delete']);
+        $this->logger->info(__FUNCTION__, ['post_id' => $post_id]);
+        $this->apiCall->delete($post_id);
     }
 }

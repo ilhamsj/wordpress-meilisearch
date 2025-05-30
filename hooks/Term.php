@@ -4,19 +4,20 @@ namespace Hooks;
 
 use Constants\Config;
 use Utils\ApiCall;
+use Utils\Logger;
 
 class Term {
 
+    private $logger;
     private $apiCall;
     
     public function __construct() {
+        $this->logger = new Logger(__CLASS__);
         $this->apiCall = new ApiCall(Config::MEILISEARCH_INDEX_TERM);
 
         add_action('created_term', [$this, 'handle_created_term'], 10, 3);
         add_action('edited_term', [$this, 'handle_created_term'], 10, 3);
-        add_action('deleted_term', [$this, 'handle_deleted_term'], 10, 3);
-        add_action('trashed_term', [$this, 'handle_trashed_term'], 10, 3);
-        add_action('untrashed_term', [$this, 'handle_untrashed_term'], 10, 3);
+        add_action('delete_term', [$this, 'handle_deleted_term'], 10, 3);
     }
 
     /**
@@ -38,16 +39,8 @@ class Term {
         $this->apiCall->send('term', $term_data);
     }
 
-    public function handle_deleted_term($term_id, $tt_id, $taxonomy) {
-        $term = get_term($term_id, $taxonomy);
-
-        $term_data = array(
-            'term_id' => $term_id,
-            'taxonomy' => $taxonomy,
-            'name' => $term->name,
-            'slug' => $term->slug,
-        );
-
-        $this->apiCall->send('term', $term_data);
+    public function handle_deleted_term($term_id) {
+        $this->logger->info(__FUNCTION__, ['term_id' => $term_id]);
+        $this->apiCall->delete($term_id);
     }
 }
