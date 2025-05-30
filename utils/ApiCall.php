@@ -17,7 +17,7 @@ class ApiCall {
      */
     public function send($object_type, $data) {
         if (empty($this->webhook_url)) {
-            error_log('Webhook URL is not set');
+            $this->logger->error('Webhook URL is not set');
             return;
         }
 

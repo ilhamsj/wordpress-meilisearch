@@ -33,7 +33,7 @@ class Logger {
     public function error($message, $context = []) {
         $this->log(Level::Error, $message, $context);
     }
-    
+
     public function debug($message, $context = []) {
         $this->log(Level::Debug, $message, $context);
     }
