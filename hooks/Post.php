@@ -20,11 +20,22 @@ class Post {
         $this->apiCall = new ApiCall(MeilisearchConfig::getIndexPost());
         $this->response = new Response();
 
-        add_action('save_post', [$this, 'handle_save_post'], 10, 3);
         add_action('wp_trash_post', [$this, 'handle_delete_post'], 10, 3);
+        add_action('wp_after_insert_post', [$this, 'handle_save_post'], 10, 3);
     }
 
-    public function handle_save_post(int $post_id, WP_Post $post, bool $update) {
+	/**
+	 * Fires once a post, its terms and meta data has been saved.
+	 *
+	 * @since 5.6.0
+	 *
+	 * @param int          $post_id     Post ID.
+	 * @param WP_Post      $post        Post object.
+	 * @param bool         $update      Whether this is an existing post being updated.
+	 * @param null|WP_Post $post_before Null for new posts, the WP_Post object prior
+	 *                                  to the update for updated posts.
+	 */
+    public function handle_save_post(int $post_id, WP_Post $post, bool $update, WP_Post $post_before) {
         if (!in_array($post->post_type, Config::POST_TYPE)) return;
 
         $post_data = [];
