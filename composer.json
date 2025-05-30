@@ -5,5 +5,8 @@
       "Utils\\": "utils/",
       "Constants\\": "constants/"
     }
+  },
+  "require": {
+    "monolog/monolog": "^3.9"
   }
 }

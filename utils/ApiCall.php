@@ -5,7 +5,12 @@ namespace Utils;
 use Constants\Config;
 
 class ApiCall {
+    private $logger;
     private $webhook_url = Config::WEBHOOK_URL;
+
+    public function __construct() {
+        $this->logger = new Logger(__CLASS__);
+    }
 
     /**
      * Send webhook to configured URL
@@ -23,9 +28,10 @@ class ApiCall {
         ]);
 
         if (is_wp_error($response)) {
-            error_log('API error: ' . $response->get_error_message());
+            $this->logger->error('API error', ['response' => $response->get_error_message(), 'data' => $data]);
         } else {
-            error_log('API success: ' . wp_remote_retrieve_body($response));
+            $response_body = json_decode(wp_remote_retrieve_body($response), true);
+            $this->logger->info('API success', ['response' => $response_body, 'data' => $data]);
         }
     }
 }
