@@ -5,21 +5,21 @@ namespace Hooks;
 use Constants\Config;
 use Constants\MeilisearchConfig;
 use Services\Response;
-use Utils\ApiCall;
 use Utils\Logger;
+use Utils\MeilisearchClient;
 use WP_Post;
 
 class Post {
 
     private $logger;
-    private $apiCall;
     private $response;
+    private $index;
     
     public function __construct() {
         $this->logger = new Logger(__CLASS__);
-        $this->apiCall = new ApiCall(MeilisearchConfig::getIndexPost());
+        $this->index = new MeilisearchClient(MeilisearchConfig::getIndexPost());
         $this->response = new Response();
-
+        
         add_action('wp_trash_post', [$this, 'handle_delete_post'], 10, 3);
         add_action('wp_after_insert_post', [$this, 'handle_save_post'], 10, 3);
     }
@@ -43,12 +43,12 @@ class Post {
 
         if($update && $post->post_status === 'publish') {
             $this->logger->info(__FUNCTION__, $post_data);
-            $this->apiCall->send('post', $post_data);
+            $this->index->addDocuments([$post_data]);
         }
     }
 
     public function handle_delete_post(int $post_id) {
         $this->logger->info(__FUNCTION__, ['post_id' => $post_id]);
-        $this->apiCall->delete($post_id);
+        $this->index->deleteDocument($post_id);
     }
 }

@@ -3,17 +3,17 @@
 namespace Hooks;
 
 use Constants\MeilisearchConfig;
-use Utils\ApiCall;
 use Utils\Logger;
+use Utils\MeilisearchClient;
 
 class Term {
 
     private $logger;
-    private $apiCall;
+    private $index;
     
     public function __construct() {
         $this->logger = new Logger(__CLASS__);
-        $this->apiCall = new ApiCall(MeilisearchConfig::getIndexTerm());
+        $this->index = new MeilisearchClient(MeilisearchConfig::getIndexTerm());
 
         add_action('created_term', [$this, 'handle_created_term'], 10, 3);
         add_action('edited_term', [$this, 'handle_created_term'], 10, 3);
@@ -36,11 +36,11 @@ class Term {
             'count' => $term->count,
         );
         
-        $this->apiCall->send('term', $term_data);
+        $this->index->addDocuments([$term_data]);
     }
 
     public function handle_deleted_term($term_id, $tt_id, $taxonomy) {
         $this->logger->info(__FUNCTION__, ['term_id' => $term_id, 'tt_id' => $tt_id, 'taxonomy' => $taxonomy]);
-        $this->apiCall->delete($term_id);
+        $this->index->deleteDocument($term_id);
     }
 }
