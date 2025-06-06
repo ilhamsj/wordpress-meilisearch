@@ -1,4 +1,15 @@
 {
+  "name": "ilhamsj/wordpress-meilisearch",
+  "type": "wordpress-plugin",
+  "description": "Wordpress plugin for meilisearch",
+  "authors": [
+    {
+      "name": "ilhamsj",
+      "email": "ilhamsaputrajati@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "Hooks\\": "hooks/",

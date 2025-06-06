@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: WordPress Custom Sync
- * Description: Triggers external webhook when posts or taxonomies are created, updated, deleted, or when post statuses change.
+ * Plugin Name: WordPress Meilisearch
+ * Description: Sync WordPress posts and taxonomies to Meilisearch.
  * Version: 1.0.0
- * Author: Your Name
- * Text Domain: wordpress-custom-sync
+ * Author: @ilhamsj
+ * Text Domain: wordpress-meilisearch
  */
 
 use Hooks\Post;
