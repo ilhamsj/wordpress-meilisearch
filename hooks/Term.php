@@ -2,7 +2,6 @@
 
 namespace Hooks;
 
-use Constants\Config;
 use Constants\MeilisearchConfig;
 use Utils\ApiCall;
 use Utils\Logger;
