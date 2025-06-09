@@ -20,7 +20,7 @@
   },
   "require": {
     "monolog/monolog": "^3.9",
-    "meilisearch/meilisearch-php": "dev-main",
+    "meilisearch/meilisearch-php": "^1.14.0",
     "guzzlehttp/guzzle": "8.0.x-dev",
     "http-interop/http-factory-guzzle": "^1.0"
   },
